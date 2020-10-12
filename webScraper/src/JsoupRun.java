@@ -13,6 +13,7 @@ public class JsoupRun {
         String baseUrl = "https://www.allrecipes.com/recipes/17561/lunch/";
         String pageUrl = baseUrl;
         int pageNum = 2;
+
         while (isValid(pageUrl)) {
             Elements recipeLinks = findUrls(pageUrl, "a.recipeCard__titleLink");
             pageUrl = baseUrl + "?page=" + pageNum;
@@ -42,7 +43,7 @@ public class JsoupRun {
             return false;
         }
     }
-    
+
     public static void printLinks(Elements links) {
         int count = 1;
         for (Element link : links) {
