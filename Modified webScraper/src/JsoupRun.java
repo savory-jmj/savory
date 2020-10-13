@@ -17,7 +17,7 @@ public class JsoupRun {
 
         String pageUrl = baseUrl;
         int pageNum = 2;
-        while (isValid(pageUrl)&& pageNum < 5) {
+        while (isValid(pageUrl)&& pageNum < 3) {
             Elements recipeLinks = findUrls(pageUrl, "h3.fixed-recipe-card__h3");
             pageUrl = baseUrl + "&page=" + pageNum;
             pageNum++;
@@ -47,10 +47,11 @@ public class JsoupRun {
         }
     }
     
-    public static void printLinks(Elements links) {
+    public static void printLinks(Elements links) throws IOException{
         int count = 1;
         for (Element link : links) {
             System.out.println(count + ": " + link.attr("abs:href"));
+            getInfo(link.attr("abs:href"));
             count++;
         }
     }
@@ -78,6 +79,21 @@ public class JsoupRun {
         }
         result.append(ending);
         return result.toString();
+    }
+    public static void getInfo(String url) throws IOException{
+        Document doc = Jsoup.connect(url).get();
+        Elements base = doc.select("div");
+        String Title = base.select("h1.headline.heading-content").text();
+        String Summary = base.select("p").text();
+        String info = base.select("section.recipe-meta-container.two-subcol-content.clearfix").text();
+        String Ingredients = base.select("ul.ingredients-section").text();
+        String Directions = base.select("ul.instructions-section").text();
+
+        System.out.println("Title:"+Title);
+        System.out.println("Summary:"+Summary);
+        System.out.println("info:"+info);
+        System.out.println("Ingredients:"+Ingredients);
+        System.out.println("Directions:"+Directions);
     }
 }
 
