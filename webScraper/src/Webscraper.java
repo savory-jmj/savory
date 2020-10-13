@@ -23,15 +23,12 @@ public class Webscraper {
     public List<List<Object>> visitPage() throws IOException {
         List<List<Object>> list = new ArrayList<>();
         int pageNum = 1;
-        while (isValid(pageUrl) && pageNum < 3) {
+        while (isValid(pageUrl) && pageNum < 5) {
             Elements recipeLinks = findUrls(pageUrl, recipeHeader);
             pageNum++;
             pageUrl = baseUrl + "?page=" + pageNum;
             list.addAll(visitLinks(recipeLinks));
         }
-        //Elements recipeLinks = findUrls(pageUrl, recipeHeader);
-        //list = visitLinks(recipeLinks);
-        //System.out.println(list.toString());
         return list;
     }
 
@@ -72,9 +69,10 @@ public class Webscraper {
         String info = base.select("section.recipe-meta-container.two-subcol-content.clearfix").text();
         String Ingredients = base.select("ul.ingredients-section").text();
         String Directions = base.select("ul.instructions-section").text();
+        Directions = Directions.replaceAll("Advertisement", "");
 
-        List<Object> list = Arrays.asList(Title, url, Summary, info, Ingredients, Directions); //
-        //System.out.println(list.toString());
+        List<Object> list = Arrays.asList(Title, url, Summary, info, Ingredients, Directions);
+
         return list;
     }
 }
