@@ -10,8 +10,7 @@ import com.google.api.client.json.jackson2.JacksonFactory;
 import com.google.api.client.util.store.FileDataStoreFactory;
 import com.google.api.services.sheets.v4.Sheets;
 import com.google.api.services.sheets.v4.SheetsScopes;
-import com.google.api.services.sheets.v4.model.AppendValuesResponse;
-import com.google.api.services.sheets.v4.model.ValueRange;
+import com.google.api.services.sheets.v4.model.*;
 
 import java.io.FileNotFoundException;
 import java.io.IOException;
@@ -23,27 +22,21 @@ import java.util.List;
 
 // Source: https://developers.google.com/sheets/api/reference/rest/v4/spreadsheets.values/append
 
-public class GoogleSheetsAppend {
+public class GoogleSheetsService {
     private static final String TOKENS_DIRECTORY_PATH = "tokens";
     private static final List<String> SCOPES = Collections.singletonList(SheetsScopes.SPREADSHEETS);
     private static final JsonFactory JSON_FACTORY = JacksonFactory.getDefaultInstance();
     private static final String CREDENTIALS_FILE_PATH = "/credentials.json";
 
     private String spreadsheetId;     // 1V1q8fhCVtTkACBJr5W88UKs-MgWwkByXT74dyyDbRt0
-    private String range;             // A1
-    private String valueInputOption;  // RAW
-    private String insertDataOption;  // INSERT_ROWS
     private Sheets sheetsService;
 
-    public GoogleSheetsAppend (String spreadsheetId, String range, String valueInputOption, String insertDataOption) throws IOException, GeneralSecurityException {
+    public GoogleSheetsService (String spreadsheetId) throws IOException, GeneralSecurityException {
         this.spreadsheetId = spreadsheetId;
-        this.range = range;
-        this.valueInputOption = valueInputOption;
-        this.insertDataOption = insertDataOption;
         this.sheetsService = createSheetsService();
     }
 
-    public AppendValuesResponse appendRow(List<List<Object>> data) throws IOException {
+    public AppendValuesResponse appendRow(List<List<Object>> data, String range, String valueInputOption, String insertDataOption) throws IOException {
         ValueRange requestBody = new ValueRange();
         List<List<Object>> row = data;
         requestBody.setValues(row);
@@ -58,6 +51,16 @@ public class GoogleSheetsAppend {
         return response;
     }
 
+    public BatchGetValuesByDataFilterResponse batchGet(List<DataFilter> dataFilters) throws IOException {
+        BatchGetValuesByDataFilterRequest requestBody = new BatchGetValuesByDataFilterRequest();
+        requestBody.setDataFilters(dataFilters);
+        Sheets.Spreadsheets.Values.BatchGetByDataFilter request =
+                sheetsService.spreadsheets().values().batchGetByDataFilter(spreadsheetId, requestBody);
+        BatchGetValuesByDataFilterResponse response = request.execute();
+
+        return response;
+    }
+
     /**
      * Creates an authorized Credential object.
      * @param HTTP_TRANSPORT The network HTTP Transport.
@@ -66,7 +69,7 @@ public class GoogleSheetsAppend {
      */
     private static Credential getCredentials(final HttpTransport HTTP_TRANSPORT) throws IOException {
         // Load client secrets.
-        InputStream in = GoogleSheetsAppend.class.getResourceAsStream(CREDENTIALS_FILE_PATH);
+        InputStream in = GoogleSheetsService.class.getResourceAsStream(CREDENTIALS_FILE_PATH);
         if (in == null) {
             throw new FileNotFoundException("Resource not found: " + CREDENTIALS_FILE_PATH);
         }

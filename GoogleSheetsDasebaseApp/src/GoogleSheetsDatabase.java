@@ -7,9 +7,9 @@ public class GoogleSheetsDatabase {
         String breakfastLink = "https://www.allrecipes.com/recipes/78/breakfast-and-brunch/";
         String lunchLink = "https://www.allrecipes.com/recipes/17561/lunch/";
         String dinnerLink = "https://www.allrecipes.com/recipes/17562/dinner/";
-        GoogleSheetsAppend googleSheetsAppend = new GoogleSheetsAppend("1V1q8fhCVtTkACBJr5W88UKs-MgWwkByXT74dyyDbRt0", "A1", "RAW", "INSERT_ROWS");
+        GoogleSheetsService googleSheetsService = new GoogleSheetsService("1V1q8fhCVtTkACBJr5W88UKs-MgWwkByXT74dyyDbRt0");
         Webscraper webscraper = new Webscraper(dinnerLink, "a.recipeCard__titleLink");
         List<List<Object>> list = webscraper.visitPage();
-        googleSheetsAppend.appendRow(list);
+        googleSheetsService.appendRow(list, "A1", "RAW", "INSERT_ROWS");
     }
 }
