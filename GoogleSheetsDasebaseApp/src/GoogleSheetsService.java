@@ -36,6 +36,7 @@ public class GoogleSheetsService {
         this.sheetsService = createSheetsService();
     }
 
+    // NOT NEEDED FOR READING SAVORY DATABASE
     public AppendValuesResponse appendRow(List<List<Object>> data, String range, String valueInputOption, String insertDataOption) throws IOException {
         ValueRange requestBody = new ValueRange();
         List<List<Object>> row = data;
