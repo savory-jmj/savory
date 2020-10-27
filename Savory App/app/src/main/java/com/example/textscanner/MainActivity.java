@@ -16,6 +16,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Toast;
+import android.net.Uri;
 
 import com.example.textscanner.ModifiedwebScraper.src.JsoupRun;
 import com.google.android.gms.tasks.OnFailureListener;
@@ -36,6 +37,8 @@ public class MainActivity extends AppCompatActivity {
     ImageView imageView;
     Button button;
     EditText edit;
+    
+    Uri CimageUri;
     private JsoupRun j;
 
     @Override
@@ -64,17 +67,28 @@ public class MainActivity extends AppCompatActivity {
         j = new JsoupRun();
     }
 
-    public void doProcess(View view) {
-        Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-        startActivityForResult(intent, 101);
+    public void chooseFile(View view){
+        CropImage.activity().start(MainActivity.this);
     }
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        Bundle bundle = data.getExtras();
 
-        Bitmap bitmap = (Bitmap) bundle.get("data");
+        if (requestCode == CropImage.CROP_IMAGE_ACTIVITY_REQUEST_CODE) {
+
+            CropImage.ActivityResult result = CropImage.getActivityResult(data);
+
+            if (resultCode == RESULT_OK) {
+                CimageUri = result.getUri();
+
+
+                Bitmap bitmap = null;
+                try {
+                    bitmap = MediaStore.Images.Media.getBitmap(this.getContentResolver(), CimageUri);
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
 
         imageView.setImageBitmap(bitmap);
 
