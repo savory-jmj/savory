@@ -71,7 +71,7 @@ public class MainActivity extends AppCompatActivity {
         CropImage.activity().start(MainActivity.this);
     }
 
-    @Override
+   @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
 
@@ -90,30 +90,43 @@ public class MainActivity extends AppCompatActivity {
                     e.printStackTrace();
                 }
 
-        imageView.setImageBitmap(bitmap);
+                imageView.setImageBitmap(bitmap);
 
-        FirebaseVisionImage firebaseVisionImage = FirebaseVisionImage.fromBitmap(bitmap);
+                FirebaseVisionImage firebaseVisionImage = FirebaseVisionImage.fromBitmap(bitmap);
 
-        FirebaseVision firebaseVision = FirebaseVision.getInstance();
+                FirebaseVision firebaseVision = FirebaseVision.getInstance();
 
-        FirebaseVisionTextRecognizer firebaseVisionTextRecognizer = firebaseVision.getOnDeviceTextRecognizer();
+                FirebaseVisionTextRecognizer firebaseVisionTextRecognizer = firebaseVision.getOnDeviceTextRecognizer();
 
-        final Task<FirebaseVisionText> task = firebaseVisionTextRecognizer.processImage(firebaseVisionImage);
+                final Task<FirebaseVisionText> task = firebaseVisionTextRecognizer.processImage(firebaseVisionImage);
 
-        task.addOnSuccessListener(new OnSuccessListener<FirebaseVisionText>() {
-            @Override
-            public void onSuccess(FirebaseVisionText firebaseVisionText) {
-                final String s = firebaseVisionText.getText();
-                edit.setText(s);
+                task.addOnSuccessListener(new OnSuccessListener<FirebaseVisionText>() {
+                    @Override
+                    public void onSuccess(FirebaseVisionText firebaseVisionText) {
+                        final String s = firebaseVisionText.getText();
+                        textView.setText(s);
+                        button = findViewById(R.id.button);
+                        button.setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View view) {
+                                Intent inten = new Intent(MainActivity.this, ScrappedActivity.class);
+                                inten.putExtra("Value", s);
+                                startActivity(inten);
+                                finish();
+                            }
+                        });
+                    }
+                });
+
+
+                task.addOnFailureListener(new OnFailureListener() {
+                    @Override
+                    public void onFailure(@NonNull Exception e) {
+                        Toast.makeText(getApplicationContext(), e.getMessage(), Toast.LENGTH_LONG).show();
+                    }
+                });
             }
-        });
-
-        task.addOnFailureListener(new OnFailureListener() {
-            @Override
-            public void onFailure(@NonNull Exception e) {
-                Toast.makeText(getApplicationContext(), e.getMessage(), Toast.LENGTH_LONG).show();
-            }
-        });
+        }
     }
 
     public void submit(View view) throws IOException {
