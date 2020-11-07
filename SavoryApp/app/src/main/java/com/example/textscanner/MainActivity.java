@@ -18,7 +18,7 @@ import android.widget.ImageView;
 import android.widget.Toast;
 import android.net.Uri;
 
-import com.example.textscanner.ModifiedwebScraper.src.GoogleSheetsGetExample;
+import com.example.textscanner.ModifiedwebScraper.src.GoogleSheetsService;
 import com.theartofdev.edmodo.cropper.CropImage;
 
 import com.example.textscanner.ModifiedwebScraper.src.JsoupRun;
@@ -30,8 +30,11 @@ import com.google.firebase.ml.vision.common.FirebaseVisionImage;
 import com.google.firebase.ml.vision.text.FirebaseVisionText;
 import com.google.firebase.ml.vision.text.FirebaseVisionTextRecognizer;
 
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import java.io.IOException;
-import java.security.GeneralSecurityException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -42,7 +45,7 @@ public class MainActivity extends AppCompatActivity {
     Button button;
     EditText edit;
     private JsoupRun j;
-    private GoogleSheetsGetExample g;
+    private GoogleSheetsService g;
     Uri CimageUri;
 
     @Override
@@ -69,7 +72,7 @@ public class MainActivity extends AppCompatActivity {
         }
 
         j = new JsoupRun();
-        g = new GoogleSheetsGetExample();
+        g = new GoogleSheetsService();
     }
 
     public void chooseFile(View view){
@@ -126,14 +129,31 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
-    public void submit(View view) throws IOException, GeneralSecurityException {
+    public void submit(View view) throws IOException, JSONException {
         List<String> linksList = new ArrayList<>();
         linksList = j.run(edit);
         System.out.println(linksList.get(0));
-        g.out();
+        getRecipes();
         Intent intent = new Intent(getBaseContext(), ResultActivity.class);
         intent.putExtra("Link", linksList.get(0));
         //Intent intent = new Intent(this,ResultMain.class);
         startActivity(intent);
+    }
+
+    public void getRecipes() throws IOException, JSONException {
+        JSONObject json = g.readJsonFromUrl();
+        JSONArray recipes = (JSONArray) json.get("entry");
+        String title = (String) ((JSONObject) ((JSONObject) recipes.get(0)).get("gsx$title")).get("$t");
+        String url = (String) ((JSONObject) ((JSONObject) recipes.get(0)).get("gsx$url")).get("$t");
+        String summary = (String) ((JSONObject) ((JSONObject) recipes.get(0)).get("gsx$summary")).get("$t");
+        String info = (String) ((JSONObject) ((JSONObject) recipes.get(0)).get("gsx$info")).get("$t");
+        String ingredients = (String) ((JSONObject) ((JSONObject) recipes.get(0)).get("gsx$ingredients")).get("$t");
+        String directions = (String) ((JSONObject) ((JSONObject) recipes.get(0)).get("gsx$directions")).get("$t");
+        System.out.println(title);
+        System.out.println(url);
+        System.out.println(summary);
+        System.out.println(info);
+        System.out.println(ingredients);
+        System.out.println(directions);
     }
 }
