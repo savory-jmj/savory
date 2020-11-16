@@ -115,12 +115,19 @@ public class JsoupRun extends AppCompatActivity {
         String info = base.select("section.recipe-meta-container.two-subcol-content.clearfix").text();
         String Ingredients = base.select("ul.ingredients-section").text();
         String Directions = base.select("ul.instructions-section").text();
+        String imageUrl = "";
+        try {
+            imageUrl = doc.select("div.image-container").select("img").get(0).absUrl("src");
+        } catch(IndexOutOfBoundsException e) {
+            System.out.println("No image");
+        }
 
         infoList.add(Title);
         infoList.add(Summary);
         infoList.add(info);
         infoList.add(Ingredients);
         infoList.add(Directions);
+        infoList.add(imageUrl);
 
 
         //System.out.println("Title:" + Title);

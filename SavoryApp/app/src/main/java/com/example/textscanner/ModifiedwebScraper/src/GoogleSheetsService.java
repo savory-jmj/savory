@@ -31,4 +31,16 @@ public class GoogleSheetsService {
             is.close();
         }
     }
+
+    public void getRecipes() throws IOException, JSONException {
+        JSONObject json = readJsonFromUrl();
+        JSONArray recipes = (JSONArray) json.get("entry");
+        String title = (String) ((JSONObject) ((JSONObject) recipes.get(0)).get("gsx$title")).get("$t");
+        String url = (String) ((JSONObject) ((JSONObject) recipes.get(0)).get("gsx$url")).get("$t");
+        String summary = (String) ((JSONObject) ((JSONObject) recipes.get(0)).get("gsx$summary")).get("$t");
+        String info = (String) ((JSONObject) ((JSONObject) recipes.get(0)).get("gsx$info")).get("$t");
+        String ingredients = (String) ((JSONObject) ((JSONObject) recipes.get(0)).get("gsx$ingredients")).get("$t");
+        String directions = (String) ((JSONObject) ((JSONObject) recipes.get(0)).get("gsx$directions")).get("$t");
+        String imageUrl = (String) ((JSONObject) ((JSONObject) recipes.get(0)).get("gsx$imageurl")).get("$t");
+    }
 }

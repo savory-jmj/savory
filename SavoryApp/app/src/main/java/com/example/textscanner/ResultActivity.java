@@ -8,6 +8,7 @@ import android.widget.TextView;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.textscanner.ModifiedwebScraper.src.JsoupRun;
+import com.squareup.picasso.Picasso;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -20,6 +21,8 @@ public class ResultActivity extends AppCompatActivity {
     private TextView textViewInfo;
     private TextView textViewIngredient;
     private TextView textViewDirection;
+    private String imageUrl;
+    private ImageView imageViewFood;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -33,6 +36,9 @@ public class ResultActivity extends AppCompatActivity {
         textViewInfo = findViewById(R.id.textViewInfo);
         textViewIngredient = findViewById(R.id.textViewIngredient);
         textViewDirection = findViewById(R.id.textViewDirection);
+        imageViewFood = findViewById(R.id.imageViewFood);
+
+
         try {
             infoList = j.getInfo(link);
             textViewTitle.setText(infoList.get(0));
@@ -40,6 +46,8 @@ public class ResultActivity extends AppCompatActivity {
             textViewInfo.setText(infoList.get(2));
             textViewIngredient.setText(infoList.get(3));
             textViewDirection.setText(infoList.get(4));
+            imageUrl = infoList.get(5);
+            Picasso.get().load(imageUrl).into(imageViewFood);
         } catch (IOException e) {
             e.printStackTrace();
         }

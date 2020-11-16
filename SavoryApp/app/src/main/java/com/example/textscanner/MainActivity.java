@@ -30,9 +30,7 @@ import com.google.firebase.ml.vision.common.FirebaseVisionImage;
 import com.google.firebase.ml.vision.text.FirebaseVisionText;
 import com.google.firebase.ml.vision.text.FirebaseVisionTextRecognizer;
 
-import org.json.JSONArray;
 import org.json.JSONException;
-import org.json.JSONObject;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -133,27 +131,12 @@ public class MainActivity extends AppCompatActivity {
         List<String> linksList = new ArrayList<>();
         linksList = j.run(edit);
         System.out.println(linksList.get(0));
-        getRecipes();
+        //g.getRecipes();
         Intent intent = new Intent(getBaseContext(), ResultActivity.class);
         intent.putExtra("Link", linksList.get(0));
         //Intent intent = new Intent(this,ResultMain.class);
         startActivity(intent);
     }
 
-    public void getRecipes() throws IOException, JSONException {
-        JSONObject json = g.readJsonFromUrl();
-        JSONArray recipes = (JSONArray) json.get("entry");
-        String title = (String) ((JSONObject) ((JSONObject) recipes.get(0)).get("gsx$title")).get("$t");
-        String url = (String) ((JSONObject) ((JSONObject) recipes.get(0)).get("gsx$url")).get("$t");
-        String summary = (String) ((JSONObject) ((JSONObject) recipes.get(0)).get("gsx$summary")).get("$t");
-        String info = (String) ((JSONObject) ((JSONObject) recipes.get(0)).get("gsx$info")).get("$t");
-        String ingredients = (String) ((JSONObject) ((JSONObject) recipes.get(0)).get("gsx$ingredients")).get("$t");
-        String directions = (String) ((JSONObject) ((JSONObject) recipes.get(0)).get("gsx$directions")).get("$t");
-        System.out.println(title);
-        System.out.println(url);
-        System.out.println(summary);
-        System.out.println(info);
-        System.out.println(ingredients);
-        System.out.println(directions);
-    }
+
 }

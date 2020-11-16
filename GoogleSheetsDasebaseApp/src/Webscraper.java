@@ -22,11 +22,11 @@ public class Webscraper {
 
     public List<List<Object>> visitPage() throws IOException {
         List<List<Object>> list = new ArrayList<>();
-        int pageNum = 1;
-        while (isValid(pageUrl) && pageNum < 5) {
+        int pageNum = 2;
+        while (isValid(pageUrl) && pageNum < 6) {
+            pageUrl = baseUrl + "?page=" + pageNum;
             Elements recipeLinks = findUrls(pageUrl, recipeHeader);
             pageNum++;
-            pageUrl = baseUrl + "?page=" + pageNum;
             list.addAll(visitLinks(recipeLinks));
         }
         return list;
@@ -56,6 +56,7 @@ public class Webscraper {
 
     public Elements findUrls(String mainUrl, String recipesHeader) throws IOException {
         Document doc = Jsoup.connect(mainUrl).get();
+        //Elements recipesContainer = doc.select("div.card__detailsContainer-left");
         Elements recipes = doc.select(recipesHeader);
         Elements links = recipes.select("a[href]");
         return links;
@@ -70,8 +71,13 @@ public class Webscraper {
         String Ingredients = base.select("ul.ingredients-section").text();
         String Directions = base.select("ul.instructions-section").text();
         Directions = Directions.replaceAll("Advertisement", "");
-
-        List<Object> list = Arrays.asList(Title, url, Summary, info, Ingredients, Directions);
+        String imageUrl = "";
+        try {
+            imageUrl = doc.select("div.image-container").select("img").get(0).absUrl("src");
+        } catch(IndexOutOfBoundsException e) {
+            System.out.println("No image");
+        }
+        List<Object> list = Arrays.asList(Title, url, Summary, info, Ingredients, Directions, imageUrl);
 
         return list;
     }
