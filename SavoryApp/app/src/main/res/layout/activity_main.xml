@@ -5,33 +5,55 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:padding="20sp"
+    android:background="@drawable/capturefood"
     tools:context=".MainActivity">
 
+    <androidx.cardview.widget.CardView
+        android:layout_width="match_parent"
+        android:layout_height="361dp"
+        android:elevation="10dp"
+        app:cardCornerRadius="8dp">
+
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="412dp"
+            android:scaleType="centerCrop"
+            android:src="@drawable/cambook" />
+    </androidx.cardview.widget.CardView>
     <ImageView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/imageId"/>
 
     <Button
-        android:layout_width="match_parent"
+        android:layout_width="251dp"
         android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:background="@drawable/mybutton"
+        android:fontFamily="sans-serif-medium"
         android:onClick="chooseFile"
+        android:padding="10dp"
         android:text="@string/take_picture"
         android:textSize="20sp" />
+
     <EditText
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/editTextId"
         android:padding="20sp"/>
+
     <Button
-        android:layout_width="match_parent"
+        android:id="@+id/button"
+        android:layout_width="251dp"
         android:layout_height="wrap_content"
         android:layout_below="@id/editTextId"
+        android:layout_gravity="center"
+        android:background="@drawable/mybutton"
+        android:fontFamily="sans-serif-medium"
+        android:onClick="submit"
+        android:padding="10dp"
         android:text="@string/submit"
-        android:textSize="20sp"
-        android:id="@+id/button"
-        android:onClick="submit"/>
+        android:textSize="20sp" />
 
 
 </LinearLayout>
