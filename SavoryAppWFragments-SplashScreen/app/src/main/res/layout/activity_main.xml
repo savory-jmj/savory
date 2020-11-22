@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="@drawable/capturefood"
+    tools:context=".MainActivity">
+
+<androidx.cardview.widget.CardView
+    android:id="@+id/cardLayer"
+    android:layout_width="match_parent"
+    android:layout_height="299dp"
+    android:elevation="10dp"
+    app:cardCornerRadius="8dp"
+    android:visibility="visible">
+
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="412dp"
+            android:scaleType="centerCrop"
+            android:src="@drawable/cambook" />
+    </androidx.cardview.widget.CardView>
+
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:layout_editor_absoluteX="0dp"
+        tools:layout_editor_absoluteY="96dp">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <ImageView
+                android:padding="20dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/imageId"/>
+
+            <Button
+                android:layout_width="251dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:background="@drawable/mybutton"
+                android:fontFamily="sans-serif-medium"
+                android:onClick="chooseFile"
+                android:padding="10dp"
+                android:text="@string/take_picture"
+                android:textSize="20sp" />
+
+            <EditText
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/editTextId"
+                android:padding="20sp"/>
+
+            <Button
+                android:id="@+id/button"
+                android:layout_width="251dp"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/editTextId"
+                android:layout_gravity="center"
+                android:background="@drawable/mybutton"
+                android:fontFamily="sans-serif-medium"
+                android:onClick="submit"
+                android:padding="10dp"
+                android:text="@string/submit"
+                android:textSize="20sp" />
+
+
+        </LinearLayout>
+    </ScrollView>
+</LinearLayout>
