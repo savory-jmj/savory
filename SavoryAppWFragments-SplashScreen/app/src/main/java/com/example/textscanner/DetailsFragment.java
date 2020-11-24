@@ -7,9 +7,11 @@ import androidx.fragment.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.example.textscanner.ModifiedwebScraper.src.JsoupRun;
+import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -17,7 +19,7 @@ import java.util.List;
 
 public class DetailsFragment extends Fragment {
 
-    //private JsoupRun mJsoupRun;
+    private JsoupRun mJsoupRun;
     private List<String> j;
 
     public static DetailsFragment newInstance(ArrayList<String> recipeId) {
@@ -37,7 +39,9 @@ public class DetailsFragment extends Fragment {
         if(getArguments() != null){
             recipeId = getArguments().getInt("recipeId");
         }
-        //j = mJsoupRun.getmList().get(recipeId);
+        else {
+            j = mJsoupRun.getmList().get(recipeId);
+        }
     }
 
     @Override
@@ -46,14 +50,23 @@ public class DetailsFragment extends Fragment {
 
         View view = inflater.inflate(R.layout.fragment_details, container, false);
 
-        TextView nameTextView = view.findViewById(R.id.bandName);
-        nameTextView.setText(j.get(0));
+        TextView titleTextView = view.findViewById(R.id.title);
+        titleTextView.setText(j.get(0));
 
-        TextView descriptionTextView = view.findViewById(R.id.bandDescription);
-        descriptionTextView.setText(j.get(1));
-        
+        TextView summaryTextView = view.findViewById(R.id.summary);
+        summaryTextView.setText(j.get(1));
 
-        //Rinse and repeat on so on for the entire list
+        TextView infoTextView = view.findViewById(R.id.info);
+        infoTextView.setText(j.get(2));
+
+        TextView ingredientsTextView = view.findViewById(R.id.ingredients);
+        ingredientsTextView.setText(j.get(3));
+
+        TextView directionsTextView = view.findViewById(R.id.directions);
+        directionsTextView.setText(j.get(4));
+
+        ImageView foodImageView = view.findViewById(R.id.foodImage);
+        Picasso.get().load(j.get(5)).into(foodImageView);
 
         return view;
 

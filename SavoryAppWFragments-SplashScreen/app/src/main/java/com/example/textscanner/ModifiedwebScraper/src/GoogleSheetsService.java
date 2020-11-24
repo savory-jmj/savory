@@ -7,6 +7,8 @@ import org.json.JSONObject;
 import java.io.*;
 import java.net.URL;
 import java.nio.charset.Charset;
+import java.util.ArrayList;
+import java.util.List;
 
 public class GoogleSheetsService {
     private String readAll(Reader rd) throws IOException {
@@ -32,17 +34,29 @@ public class GoogleSheetsService {
         }
     }
 
-    public void getRecipes() throws IOException, JSONException {
-        //plz return a full list of List<Arraylist<String>>
-        //you might wanna keep only like twenty entires for the data base
+    public List<ArrayList<String>> getRecipes(int index) throws IOException, JSONException {
+        List<ArrayList<String>> recipesList = new ArrayList<ArrayList<String>>();
+        ArrayList<String> recipe = new ArrayList<>();
+
         JSONObject json = readJsonFromUrl();
         JSONArray recipes = (JSONArray) json.get("entry");
-        String title = (String) ((JSONObject) ((JSONObject) recipes.get(0)).get("gsx$title")).get("$t");
-        String url = (String) ((JSONObject) ((JSONObject) recipes.get(0)).get("gsx$url")).get("$t");
-        String summary = (String) ((JSONObject) ((JSONObject) recipes.get(0)).get("gsx$summary")).get("$t");
-        String info = (String) ((JSONObject) ((JSONObject) recipes.get(0)).get("gsx$info")).get("$t");
-        String ingredients = (String) ((JSONObject) ((JSONObject) recipes.get(0)).get("gsx$ingredients")).get("$t");
-        String directions = (String) ((JSONObject) ((JSONObject) recipes.get(0)).get("gsx$directions")).get("$t");
-        String imageUrl = (String) ((JSONObject) ((JSONObject) recipes.get(0)).get("gsx$imageurl")).get("$t");
+        for (int i = index; i < index+20; i++) {
+            String title = (String) ((JSONObject) ((JSONObject) recipes.get(i)).get("gsx$title")).get("$t");
+            String url = (String) ((JSONObject) ((JSONObject) recipes.get(i)).get("gsx$url")).get("$t");
+            String summary = (String) ((JSONObject) ((JSONObject) recipes.get(i)).get("gsx$summary")).get("$t");
+            String info = (String) ((JSONObject) ((JSONObject) recipes.get(i)).get("gsx$info")).get("$t");
+            String ingredients = (String) ((JSONObject) ((JSONObject) recipes.get(i)).get("gsx$ingredients")).get("$t");
+            String directions = (String) ((JSONObject) ((JSONObject) recipes.get(i)).get("gsx$directions")).get("$t");
+            String imageUrl = (String) ((JSONObject) ((JSONObject) recipes.get(i)).get("gsx$imageurl")).get("$t");
+
+            recipe.add(title);
+            recipe.add(summary);
+            recipe.add(info);
+            recipe.add(ingredients);
+            recipe.add(directions);
+            recipe.add(imageUrl);
+            recipesList.add(recipe);
+        }
+        return recipesList;
     }
 }

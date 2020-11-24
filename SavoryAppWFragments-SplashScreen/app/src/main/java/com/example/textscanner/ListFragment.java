@@ -12,7 +12,10 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import com.example.textscanner.ModifiedwebScraper.src.GoogleSheetsService;
 import com.example.textscanner.ModifiedwebScraper.src.JsoupRun;
+
+import org.json.JSONException;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -20,6 +23,8 @@ import java.util.List;
 
 public class ListFragment extends Fragment {
     private JsoupRun j;
+    private GoogleSheetsService g;
+
     // For the activity to implement
     public interface OnBandSelectedListener {
         void onBandSelected(ArrayList<String> recipeId);
@@ -37,6 +42,7 @@ public class ListFragment extends Fragment {
         recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
 
         j = new JsoupRun();
+        g = new GoogleSheetsService();
 
         Bundle bundle = this.getArguments();
 
@@ -49,7 +55,13 @@ public class ListFragment extends Fragment {
             }
         }
         else{
-            //j.setmList(google database list); <----------------------------------------- HERE
+            try {
+                j.setmList(g.getRecipes(0));
+            } catch (IOException e) {
+                e.printStackTrace();
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
         }
 
         // Send bands to recycler view

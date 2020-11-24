@@ -2,5 +2,7 @@
     <string name="app_name">Savory</string>
     <string name="take_picture">Take Picture</string>
     <string name="submit">Submit</string>
+    <string name="browse">Browse</string>
+    <string name="scan_receipt">Scan Receipt</string>
 
 </resources>
