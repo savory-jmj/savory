@@ -6,13 +6,28 @@
     android:layout_height="wrap_content"
     android:background="@color/IDKIdontlikewhatyouraredoing">
 
-    <TextView xmlns:android="http://schemas.android.com/apk/res/android"
+    <LinearLayout
+        android:orientation="horizontal"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/bandName"
-        android:text="recipe"
-        android:padding="15dp"
-        android:textSize="30sp">
-    </TextView>
+        android:layout_gravity="center_horizontal"
+        android:gravity="center_vertical|center_horizontal">
+
+        <ImageView
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:paddingLeft="15dp"
+            android:scaleType="fitXY"
+            android:id="@+id/foodImageView" />
+
+        <TextView xmlns:android="http://schemas.android.com/apk/res/android"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/recipeName"
+            android:text="recipe"
+            android:padding="15dp"
+            android:textSize="30sp">
+        </TextView>
+    </LinearLayout>
 
 </LinearLayout>

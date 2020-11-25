@@ -1,5 +1,7 @@
 package com.example.textscanner.ModifiedwebScraper.src;
 
+import android.os.StrictMode;
+
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -36,9 +38,19 @@ public class GoogleSheetsService {
 
     public List<ArrayList<String>> getRecipes(int index) throws IOException, JSONException {
         List<ArrayList<String>> recipesList = new ArrayList<ArrayList<String>>();
-        ArrayList<String> recipe = new ArrayList<>();
 
-        JSONObject json = readJsonFromUrl();
+        JSONObject json = new JSONObject();
+
+        int SDK_INT = android.os.Build.VERSION.SDK_INT;
+        if (SDK_INT > 8)
+        {
+            StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder()
+                    .permitAll().build();
+            StrictMode.setThreadPolicy(policy);
+
+            json = readJsonFromUrl();
+        }
+
         JSONArray recipes = (JSONArray) json.get("entry");
         for (int i = index; i < index+20; i++) {
             String title = (String) ((JSONObject) ((JSONObject) recipes.get(i)).get("gsx$title")).get("$t");
@@ -49,6 +61,7 @@ public class GoogleSheetsService {
             String directions = (String) ((JSONObject) ((JSONObject) recipes.get(i)).get("gsx$directions")).get("$t");
             String imageUrl = (String) ((JSONObject) ((JSONObject) recipes.get(i)).get("gsx$imageurl")).get("$t");
 
+            ArrayList<String> recipe = new ArrayList<>();
             recipe.add(title);
             recipe.add(summary);
             recipe.add(info);

@@ -15,7 +15,7 @@ import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.List;
 
-public class ListActivity extends AppCompatActivity implements ListFragment.OnBandSelectedListener {
+public class ListActivity extends AppCompatActivity implements ListFragment.OnRecipeSelectedListener {
 
     private static final String KEY_RECIPE_ID = "recipeId";
     private ArrayList<String> mRecipeId;
@@ -44,7 +44,7 @@ public class ListActivity extends AppCompatActivity implements ListFragment.OnBa
         }
     }
     @Override
-    public void onBandSelected(ArrayList<String> recipeId) {
+    public void onRecipeSelected(ArrayList<String> recipeId) {
 
         mRecipeId = recipeId;
 
@@ -55,9 +55,9 @@ public class ListActivity extends AppCompatActivity implements ListFragment.OnBa
             startActivity(intent);
         } else {
             // Replace previous fragment (if one exists) with a new fragment
-            Fragment bandFragment = DetailsFragment.newInstance(mRecipeId);
+            Fragment recipeFragment = DetailsFragment.newInstance(mRecipeId);
             getSupportFragmentManager().beginTransaction()
-                    .replace(R.id.details_fragment_container, bandFragment)
+                    .replace(R.id.details_fragment_container, recipeFragment)
                     .commit();
         }
     }

@@ -122,6 +122,7 @@ public class JsoupRun extends AppCompatActivity {
         String info = base.select("section.recipe-meta-container.two-subcol-content.clearfix").text();
         String Ingredients = base.select("ul.ingredients-section").text();
         String Directions = base.select("ul.instructions-section").text();
+        Directions = Directions.replaceAll("Advertisement", "");
         String imageUrl = "";
         try {
             imageUrl = doc.select("div.image-container").select("img").get(0).absUrl("src");
@@ -136,17 +137,7 @@ public class JsoupRun extends AppCompatActivity {
         infoList.add(Directions);
         infoList.add(imageUrl);
 
-
-        //System.out.println("Title:" + Title);
-        //System.out.println("Summary:" + Summary);
-        //System.out.println("info:" + info);
-        //System.out.println("Ingredients:" + Ingredients);
-        //System.out.println("Directions:" + Directions);
-
-
         return infoList;
-
-
     }
 
     public ArrayList<String> search (String recipe){

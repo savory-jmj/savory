@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.EditText;
 
 import org.json.JSONException;
 
@@ -24,7 +25,9 @@ public class MenuActivity extends AppCompatActivity {
     }
 
     public void browse(View view) {
+        EditText edit = findViewById(R.id.editTextId);
         Intent intent = new Intent(getBaseContext(), ListActivity.class);
+        intent.putExtra("Link",edit.getText().toString());
         startActivity(intent);
     }
 }
