@@ -13,6 +13,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import com.example.textscanner.ModifiedwebScraper.src.GoogleSheetsService;
@@ -28,6 +29,7 @@ import java.util.List;
 public class ListFragment extends Fragment {
     private JsoupRun j;
     private GoogleSheetsService g;
+
 
     // For the activity to implement
     public interface OnRecipeSelectedListener {
