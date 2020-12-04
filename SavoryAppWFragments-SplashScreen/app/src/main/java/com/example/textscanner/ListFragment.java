@@ -67,7 +67,7 @@ public class ListFragment extends Fragment {
             }
         }
 
-        // Send bands to recycler view
+        // Send recipe to recycler view
         RecipeAdapter adapter = new RecipeAdapter(j.getmList());
         recyclerView.setAdapter(adapter);
 

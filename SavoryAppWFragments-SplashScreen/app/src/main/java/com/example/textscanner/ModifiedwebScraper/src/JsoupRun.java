@@ -50,7 +50,7 @@ public class JsoupRun extends AppCompatActivity {
             pageUrl = baseUrl + "&page=" + pageNum;
             pageNum++;
             i++;
-            printLinks(recipeLinks);
+            addRecipe(recipeLinks);
             //printLinks(recipeLinks); //Debuging
         }
     }
@@ -80,7 +80,7 @@ public class JsoupRun extends AppCompatActivity {
         }
     }
 
-    public void printLinks(Elements links) throws IOException {
+    public void addRecipe (Elements links) throws IOException {
         int count = 1;
         for (Element link : links) {
             //System.out.println(count + ": " + link.attr("abs:href"));
