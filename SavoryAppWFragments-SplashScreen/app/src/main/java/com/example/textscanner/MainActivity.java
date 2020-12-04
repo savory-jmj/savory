@@ -81,6 +81,7 @@ public class MainActivity extends AppCompatActivity {
 
     public void chooseFile(View view){
         card = findViewById(R.id.cardLayer);
+        card1 = findViewById(R.id.cardHolder);
 
         CropImage.activity().start(MainActivity.this);
         card.setVisibility(View.GONE);
