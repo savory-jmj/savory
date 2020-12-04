@@ -52,6 +52,8 @@ public class MainActivity extends AppCompatActivity {
     private GoogleSheetsService g;
     Uri CimageUri;
 
+    
+    //OnCreate checks the phone for permission to access the Camera and reveals UI assets.
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -79,6 +81,8 @@ public class MainActivity extends AppCompatActivity {
         g = new GoogleSheetsService();
     }
 
+    
+    //Allows users to select where to pick reciept image from
     public void chooseFile(View view){
         card = findViewById(R.id.cardLayer);
         card1 = findViewById(R.id.cardHolder);
