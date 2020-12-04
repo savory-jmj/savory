@@ -51,7 +51,6 @@ public class JsoupRun extends AppCompatActivity {
             pageNum++;
             i++;
             addRecipe(recipeLinks);
-            //printLinks(recipeLinks); //Debuging
         }
     }
 
@@ -83,8 +82,6 @@ public class JsoupRun extends AppCompatActivity {
     public void addRecipe (Elements links) throws IOException {
         int count = 1;
         for (Element link : links) {
-            //System.out.println(count + ": " + link.attr("abs:href"));
-            //getInfo(link.attr("abs:href"));
             mList.add(getInfo(link.attr("abs:href")));
             count++;
         }

@@ -19,7 +19,6 @@ import java.util.List;
 
 public class DetailsFragment extends Fragment {
 
-    private JsoupRun mJsoupRun;
     private List<String> j;
 
     public static DetailsFragment newInstance(ArrayList<String> recipeId) {
@@ -33,15 +32,7 @@ public class DetailsFragment extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
         j = getArguments().getStringArrayList("recipeId");
-        int recipeId = 1;
-        if(getArguments() != null){
-            recipeId = getArguments().getInt("recipeId");
-        }
-        else {
-            j = mJsoupRun.getmList().get(recipeId);
-        }
     }
 
     @Override
@@ -54,16 +45,16 @@ public class DetailsFragment extends Fragment {
         titleTextView.setText(j.get(0));
 
         TextView summaryTextView = view.findViewById(R.id.summary);
-        summaryTextView.setText(j.get(1));
+        summaryTextView.setText("\nSummary: \n" +j.get(1));
 
         TextView infoTextView = view.findViewById(R.id.info);
-        infoTextView.setText(j.get(2));
+        infoTextView.setText("\nInfo: \n"+j.get(2));
 
         TextView ingredientsTextView = view.findViewById(R.id.ingredients);
-        ingredientsTextView.setText(j.get(3));
+        ingredientsTextView.setText("\nIngredients: \n"+j.get(3));
 
         TextView directionsTextView = view.findViewById(R.id.directions);
-        directionsTextView.setText(j.get(4));
+        directionsTextView.setText("\nDirections: \n"+j.get(4));
 
         ImageView foodImageView = view.findViewById(R.id.foodImage);
         Picasso.get().load(j.get(5)).into(foodImageView);

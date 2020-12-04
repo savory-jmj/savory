@@ -143,10 +143,6 @@ public class MainActivity extends AppCompatActivity {
         Intent intent = new Intent(getBaseContext(), ListActivity.class);
         intent.putExtra("Link",edit.getText().toString());
         startActivity(intent);
-
-
-        //intent.putExtra("Link", (Parcelable) k);
-        ////Intent intent = new Intent(this,ResultMain.class);
     }
 
 
