@@ -46,6 +46,7 @@ public class MainActivity extends AppCompatActivity {
     Button button;
     EditText edit;
     CardView card;
+    CardView card1;
 
     private JsoupRun j;
     private GoogleSheetsService g;
@@ -83,6 +84,8 @@ public class MainActivity extends AppCompatActivity {
 
         CropImage.activity().start(MainActivity.this);
         card.setVisibility(View.GONE);
+         card1.setVisibility(View.VISIBLE);
+
     }
 
 
