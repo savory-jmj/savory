@@ -13,6 +13,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class GoogleSheetsService {
+    
+    // readAll() takes in a reader and concatenates a string to return.
     private String readAll(Reader rd) throws IOException {
         StringBuilder sb = new StringBuilder();
         int cp;
@@ -23,7 +25,9 @@ public class GoogleSheetsService {
     }
 
     public JSONObject readJsonFromUrl() throws IOException, JSONException {
+        // url of public Savary database
         String url = "https://spreadsheets.google.com/feeds/list/1V1q8fhCVtTkACBJr5W88UKs-MgWwkByXT74dyyDbRt0/default/public/values?alt=json";
+        
         InputStream is = new URL(url).openStream();
         try {
             BufferedReader rd = new BufferedReader(new InputStreamReader(is, Charset.forName("UTF-8")));
