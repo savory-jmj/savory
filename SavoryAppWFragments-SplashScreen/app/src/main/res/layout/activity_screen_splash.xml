@@ -25,13 +25,13 @@
         android:id="@+id/textView"
         android:layout_width="292dp"
         android:layout_height="82dp"
-        android:layout_marginBottom="104dp"
-        android:fontFamily="cursive"
+        android:layout_marginBottom="116dp"
+        android:fontFamily="@font/pacifico"
         android:text="Delicious Isn't It"
-        android:textSize="42sp"
+        android:textSize="36sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.613"
+        app:layout_constraintHorizontal_bias="0.571"
         app:layout_constraintStart_toStartOf="parent" />
 
 
