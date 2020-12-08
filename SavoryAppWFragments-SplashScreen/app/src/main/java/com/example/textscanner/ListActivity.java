@@ -25,6 +25,8 @@ public class ListActivity extends AppCompatActivity implements ListFragment.OnRe
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_list);
 
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+
         String text = getIntent().getStringExtra("Link");
 
         mRecipeId = new ArrayList<>();

@@ -1,5 +1,6 @@
 package com.example.textscanner;
 
+import android.app.ActionBar;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
@@ -9,6 +10,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toolbar;
 
 import com.example.textscanner.ModifiedwebScraper.src.JsoupRun;
 import com.squareup.picasso.Picasso;

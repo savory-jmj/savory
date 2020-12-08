@@ -17,10 +17,10 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".DetailsActivity" />
-        <activity android:name=".ListActivity" />
+        <activity android:name=".DetailsActivity"/>
+        <activity android:name=".ListActivity" android:parentActivityName=".MenuActivity"> </activity>
         <activity android:name="com.theartofdev.edmodo.cropper.CropImageActivity" />
-        <activity android:name=".MainActivity" />
+        <activity android:name=".MainActivity" android:parentActivityName=".MenuActivity"> </activity>
     </application>
     <uses-permission android:name="android.permission.INTERNET" />
 
