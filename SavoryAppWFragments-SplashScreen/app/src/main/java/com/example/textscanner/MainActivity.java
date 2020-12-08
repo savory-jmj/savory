@@ -94,7 +94,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
 
-
+ //OnActivity Result() opens crop activity before using the firebase ML kit to convert the image to a bitmap and extract text.
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
@@ -125,6 +125,7 @@ public class MainActivity extends AppCompatActivity {
 
                 final Task<FirebaseVisionText> task = firebaseVisionTextRecognizer.processImage(firebaseVisionImage);
 
+                //extracted text is sent to an edittext object
                 task.addOnSuccessListener(new OnSuccessListener<FirebaseVisionText>() {
                     @Override
                     public void onSuccess(FirebaseVisionText firebaseVisionText) {
@@ -143,6 +144,7 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
+    //sends content of edittext to ListActivity
     public void submit(View view) throws IOException, JSONException {
         Intent intent = new Intent(getBaseContext(), ListActivity.class);
         intent.putExtra("Link",edit.getText().toString());
